@@ -14,7 +14,8 @@
 
 import RPi.GPIO as GPIO
 import time
-GPIO.setwarnings(False) 
+#GPIO.setwarnings(False) 
+
 class SPIManager(object):
 	
 	SPI_MOSI = 10

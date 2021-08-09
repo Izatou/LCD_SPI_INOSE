@@ -4,8 +4,6 @@ import Python_ILI9486 as TFT
 import Adafruit_GPIO as GPIO
 import Adafruit_GPIO.SPI as SPI
 import time
-from sys import stdout
-from XPT2046 import XPT2046
 
 
 # Raspberry Pi configuration.
@@ -13,6 +11,7 @@ DC = 24
 RST = 25
 SPI_PORT = 0
 SPI_DEVICE = 0
+
 disp = TFT.ILI9486(DC, rst=RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=64000000))
 disp.begin()
 
@@ -51,24 +50,3 @@ draw_rotated_text(image, ' MULAI ', (80, 32), 270, font, fill=(255,255,255))
 # display!
 #disp.display(image)
 disp.display(image)
-
-try:
-	xpt2046 = XPT2046()
-	while True:
-		startTime = time.time()
-		x = xpt2046.readX()
-		y = xpt2046.readY()
-		z1 = xpt2046.readZ1()
-		z2 = xpt2046.readZ2()
-		pressure = round(xpt2046.readTouchPressure(),2)
-		#duration = round((time.time() - startTime) * 1000, 2)
-		
-		if x in range(200,1850) :
-			if y in range (200,1050) :
-				disp.display()	
-		#stdout.write ("\rX: %s " % x + " Y: %s" % y + " Z1: %s" % z1 + " Z2: %s" % z2 + " Pressure: %s" % pressure + " Temp0: %s" % temp0 + " Temp1: %s" % temp1 + " VBatt: %s" % vbatt + " Aux: %s" % aux + " SampleTime: %s ms" % duration +"                  ")
-		#stdout.flush ()
-except KeyboardInterrupt:
-	stdout.write ("\n")
-except Exception:
-	raise
