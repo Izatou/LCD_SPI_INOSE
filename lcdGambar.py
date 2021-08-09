@@ -17,7 +17,9 @@ disp.begin()
 
 disp.clear((255,0,0))
 
-image = Image.open('inosek.png')
+desktop = Image.open('/home/pi/LCD_SPI_INOSE/awal.png')
+desktop = desktop.rotate(180).resize((320,480))
+image = Image.open('/home/pi/LCD_SPI_INOSE/inosek.png')
 image = image.rotate(180).resize((320,480))
 
 draw = ImageDraw.Draw(image)
@@ -26,7 +28,7 @@ draw.rectangle((0, 0, 320, 120), fill=(255,138,51))
 draw.line((160, 0, 160, 120), fill=(255,255,255))
 draw.line((159, 0, 159, 120), fill=(255,255,255))
 # Load default font.
-font = ImageFont.load_default()
+fontEn = ImageFont.truetype('miniN.ttf', 25)
 
 def draw_rotated_text(image, text, position, angle, font, fill=(255,255,255)):
 	# Get rendered font width and height.
@@ -43,10 +45,12 @@ def draw_rotated_text(image, text, position, angle, font, fill=(255,255,255)):
 	image.paste(rotated, position, rotated)
 
 # Write two lines of white text on the buffer, rotated 90 degrees counter clockwise.
-draw_rotated_text(image, 'SETTING', (240, 32), 270, font, fill=(255,255,255))
-draw_rotated_text(image, ' MULAI ', (80, 32), 270, font, fill=(255,255,255))
+draw_rotated_text(image, 'SETTING', (220, 15), 270, fontEn, fill=(255,255,255))
+draw_rotated_text(image, ' MULAI ', (80, 15), 270, fontEn, fill=(255,255,255))
 
 # Write buffer to display hardware, must be called to make things visible on the
 # display!
 #disp.display(image)
+disp.display(desktop)
+time.sleep(3)
 disp.display(image)
