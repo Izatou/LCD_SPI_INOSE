@@ -13,7 +13,7 @@ DC = 24
 RST = 25
 SPI_PORT = 0
 SPI_DEVICE = 0
-
+page=0
 disp = TFT.ILI9486(DC, rst=RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=64000000))
 disp.begin()
 
@@ -53,7 +53,7 @@ draw_rotated_text(image, ' MULAI ', (80, 32), 270, font, fill=(255,255,255))
 # Write buffer to display hardware, must be called to make things visible on the
 # display!
 #disp.display(image)
-disp.display(image)
+#disp.display(image)
 
 
 try:
@@ -72,10 +72,35 @@ try:
 		duration = round((time.time() - startTime) * 1000, 2)
 		stdout.write ("\rX: %s " % x + " Y: %s" % y + " Z1: %s" % z1 + " Z2: %s" % z2 + " Pressure: %s" % pressure + " Temp0: %s" % temp0 + " Temp1: %s" % temp1 + " VBatt: %s" % vbatt + " Aux: %s" % aux + " SampleTime: %s ms" % duration +"                  ")
 		stdout.flush ()
-		if x in range(200,1850) :
-			if y in range(200,1050) :
-				#disp.display()
-				disp.display(banteng)
+		if page=0:
+			if x in range(200,1850) :
+				if y in range(200,1050) :
+					#disp.display()
+					page=1
+			if x in range(1850,3850) :
+				if y in range(200,1050) :
+					#disp.display()
+					page=4
+		if page=1:
+			if x in range(200,3850) :
+				if y in range(200,1050) :
+					#disp.display()
+					page=0
+		if page=3:
+			if x in range(200,1850) :
+				if y in range(200,1050) :
+					#disp.display()
+					#page=1 KirimWA
+			if x in range(1850,3850) :
+				if y in range(200,1050) :
+					#disp.display()
+					page=0
+		if page==0:
+			disp.display(image)
+			
+		if page==1:
+			disp.display(banteng)
+			
 except KeyboardInterrupt:
 	stdout.write ("\n")
 except Exception:
