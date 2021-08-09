@@ -20,7 +20,9 @@ disp.begin()
 disp.clear((255,0,0))
 
 image = Image.open('inosek.png')
+banteng = Image.open('banteng.png')
 image = image.rotate(180).resize((320,480))
+banteng = banteng.rotate(180).resize((320,480))
 
 draw = ImageDraw.Draw(image)
 
@@ -70,6 +72,10 @@ try:
 		duration = round((time.time() - startTime) * 1000, 2)
 		stdout.write ("\rX: %s " % x + " Y: %s" % y + " Z1: %s" % z1 + " Z2: %s" % z2 + " Pressure: %s" % pressure + " Temp0: %s" % temp0 + " Temp1: %s" % temp1 + " VBatt: %s" % vbatt + " Aux: %s" % aux + " SampleTime: %s ms" % duration +"                  ")
 		stdout.flush ()
+		if x in range(200,1850) :
+			if y in range(200,1050) :
+				#disp.display()
+				disp.display(banteng)
 except KeyboardInterrupt:
 	stdout.write ("\n")
 except Exception:
