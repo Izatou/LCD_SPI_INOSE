@@ -63,7 +63,7 @@ try:
 		pressure = round(xpt2046.readTouchPressure(),2)
 		duration = round((time.time() - startTime) * 1000, 2)
 		
-		if x >= 0 && x <= 160 :
+		if x >= 0 & x <= 160 :
 			disp.display()
 			
 		#stdout.write ("\rX: %s " % x + " Y: %s" % y + " Z1: %s" % z1 + " Z2: %s" % z2 + " Pressure: %s" % pressure + " Temp0: %s" % temp0 + " Temp1: %s" % temp1 + " VBatt: %s" % vbatt + " Aux: %s" % aux + " SampleTime: %s ms" % duration +"                  ")
