@@ -1,4 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
+from XPT2046 import XPT2046
+from sys import stdout
 
 import Python_ILI9486 as TFT
 import Adafruit_GPIO as GPIO
@@ -50,3 +52,25 @@ draw_rotated_text(image, ' MULAI ', (80, 32), 270, font, fill=(255,255,255))
 # display!
 #disp.display(image)
 disp.display(image)
+
+
+try:
+	xpt2046 = XPT2046()
+	while True:
+		startTime = time.time()
+		x = xpt2046.readX()
+		y = xpt2046.readY()
+		z1 = xpt2046.readZ1()
+		z2 = xpt2046.readZ2()
+		pressure = round(xpt2046.readTouchPressure(),2)
+		temp0 = xpt2046.readTemperature0()
+		temp1 = xpt2046.readTemperature1()
+		vbatt = xpt2046.readBatteryVoltage()
+		aux = xpt2046.readAuxiliary()
+		duration = round((time.time() - startTime) * 1000, 2)
+		stdout.write ("\rX: %s " % x + " Y: %s" % y + " Z1: %s" % z1 + " Z2: %s" % z2 + " Pressure: %s" % pressure + " Temp0: %s" % temp0 + " Temp1: %s" % temp1 + " VBatt: %s" % vbatt + " Aux: %s" % aux + " SampleTime: %s ms" % duration +"                  ")
+		stdout.flush ()
+except KeyboardInterrupt:
+	stdout.write ("\n")
+except Exception:
+	raise
