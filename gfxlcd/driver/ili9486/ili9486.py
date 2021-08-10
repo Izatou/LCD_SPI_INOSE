@@ -1,5 +1,5 @@
 """ILI9486 chip driver"""
-from gfxlcd.drawing.page import Page as Area
+from gfxlcd.drawing.area import Area
 from gfxlcd.abstract.chip import Chip
 
 
