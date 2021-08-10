@@ -1,11 +1,9 @@
 from PIL import Image, ImageDraw, ImageFont
-from XPT2046 import XPT2046
-from sys import stdout
-
 import Python_ILI9486 as TFT
 import Adafruit_GPIO as GPIO
 import Adafruit_GPIO.SPI as SPI
 import time
+from gfxlcd.driver.xpt2046.xpt2046 import XPT2046
 
 
 # Raspberry Pi configuration.
@@ -70,22 +68,38 @@ draw_rotated_text(screen_5, 'Positif', (100, 200), 270, fontEn, fill=(255,138,51
 # display!
 #disp.display(image)
 
-while (1):
-	disp.display(desktop)
-	time.sleep(3)
-#disp.display(image)
-#time.sleep(3)
-	disp.display(screen_2)
-	time.sleep(3)
-	disp.display(screen_3)
-	time.sleep(4)
-	disp.display(screen_4)
-	time.sleep(4)
-	disp.display(screen_5)
-	time.sleep(4)
-	disp.display(screen_2)
-	time.sleep(3)
-	disp.display(screen_6)
-	time.sleep(6)
-	break
+def callback(position):
+    print('(x,y)', position)
+
+touch = XPT2046(480, 320, 17, callback, 7)
+#touch.rotate = 270
+disp.display(desktop)
+
+touch.init()
+while True:
+    try:
+        time.sleep(1)
+
+    except KeyboardInterrupt:
+        touch.close()
+        # RPi.GPIO.cleanup()
+
+# while (1):
+	# disp.display(desktop)
+	# time.sleep(3)
+	#disp.display(image)
+	#time.sleep(3)
+	# disp.display(screen_2)
+	# time.sleep(3)
+	# disp.display(screen_3)
+	# time.sleep(4)
+	# disp.display(screen_4)
+	# time.sleep(4)
+	# disp.display(screen_5)
+	# time.sleep(4)
+	# disp.display(screen_2)
+	# time.sleep(3)
+	# disp.display(screen_6)
+	# time.sleep(6)
+	# break
 #page=0
