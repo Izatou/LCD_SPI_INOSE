@@ -10,6 +10,11 @@ from gfxlcd.driver.ili9486.ili9486 import ILI9486
 RPi.GPIO.setmode(RPi.GPIO.BCM)
 
 
+# Raspberry Pi configuration.
+DC = 24
+RST = 25
+SPI_PORT = 0
+SPI_DEVICE = 0
 disp = TFT.ILI9486(DC, rst=RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=64000000))
 disp.begin()
 
