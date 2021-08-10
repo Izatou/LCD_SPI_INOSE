@@ -1,3 +1,5 @@
+
+from PIL import Image
 import RPi.GPIO
 import sys
 import time
@@ -9,6 +11,8 @@ RPi.GPIO.setmode(RPi.GPIO.BCM)
 
 
 lcd_tft = ILI9486(320, 480, SPI())
+lcd_tft.rotation = 180
+
 lcd_tft.init()
 
 
