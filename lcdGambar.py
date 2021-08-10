@@ -68,17 +68,17 @@ draw_rotated_text(screen_5, 'Positif', (100, 200), 270, fontEn, fill=(255,138,51
 # display!
 #disp.display(image)
 
-#def callback(position):
-  #  print('(x,y)', position)
+def callback(position):
+    print('(x,y)', position)
 
-#touch = XPT2046(480, 320, 17, callback, 7)
+touch = XPT2046(480, 320, 17, callback, 7)
 #touch.rotate = 270
 disp.display(desktop)
 
-#touch.init()
+touch.init()
 while True:
     try:
-        time.sleep(1)
+        time.sleep(0.01)
 
     except KeyboardInterrupt:
         #touch.close()
