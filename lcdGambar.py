@@ -83,16 +83,17 @@ touch = XPT2046(480, 320, 17, callback, 7)
 disp.display(desktop)
 time.sleep(3)
 disp.display(screen_2)
-
 touch.init()
+
+
 while True:
     try:
-		if page == 0:
-			disp.display(screen_2)
-		if page == 3:
-			disp.display(screen_3)
-		if page == 4:
-			disp.display(screen_4) 
+	if page == 0:
+		disp.display(screen_2)
+	if page == 3:
+		disp.display(screen_3)
+	if page == 4:
+		disp.display(screen_4) 
 
     except KeyboardInterrupt:
         #touch.close()
