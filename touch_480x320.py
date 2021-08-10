@@ -22,14 +22,14 @@ touch.init()
 
 while True:
     try:
-	print('(x,y)', position)
-	#print(get_position())
-        time.sleep(1)
+		print('(x,y)', position)
+		#print(get_position())
+		time.sleep(1)
 
     except KeyboardInterrupt:
         print('\n')
-	#break
-	#touch.close()
+		#break
+		#touch.close()
         #RPi.GPIO.cleanup()
 
 
