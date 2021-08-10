@@ -1,15 +1,15 @@
 """ILI9486 chip driver"""
-from gfxlcd.drawing.area import Area
+from gfxlcd.drawing.page import Page
 from gfxlcd.abstract.chip import Chip
 
 
-class ILI9486(Area, Chip):
+class ILI9486(Page, Chip):
     """Class for ILI9486 based LCD"""
     rotations = {0: 0x88, 90: 0xf8, 180: 0x48, 270: 0x28}
 
     def __init__(self, width, height, driver):
         Chip.__init__(self, width, height, driver, True)
-        Area.__init__(self, driver)
+        Page.__init__(self, driver)
 
     def _convert_color(self, color):
         """color from 8-8-8 to 5-6-5"""
@@ -22,7 +22,7 @@ class ILI9486(Area, Chip):
     def init(self):
         """init display"""
         self.driver.init()
-        Area.init(self)
+        Page.init(self)
         Chip.init(self)
         self.driver.reset()
 
@@ -113,8 +113,8 @@ class ILI9486(Area, Chip):
         # Display ON
         self.driver.cmd(0x29, None)
 
-    def _set_area(self, pos_x1, pos_y1, pos_x2, pos_y2):
-        """select area to work with"""
+    def _set_Page(self, pos_x1, pos_y1, pos_x2, pos_y2):
+        """select Page to work with"""
         self.driver.cmd(0x2a, None)
         self.driver.data(pos_x1 >> 8, None)
         self.driver.data(pos_x1 & 0xff, None)
