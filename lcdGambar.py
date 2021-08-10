@@ -1,5 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 from XPT2046 import XPT2046
+from sys import stdout
 
 import Python_ILI9486 as TFT
 import Adafruit_GPIO as GPIO
@@ -15,13 +16,28 @@ SPI_DEVICE = 0
 
 disp = TFT.ILI9486(DC, rst=RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=64000000))
 disp.begin()
-
-disp.clear((255,0,0))
+#disp.clear((255,0,0))
 
 desktop = Image.open('/home/pi/LCD_SPI_INOSE/awal.png')
 desktop = desktop.rotate(180).resize((320,480))
+
 image = Image.open('/home/pi/LCD_SPI_INOSE/inosek.png')
 image = image.rotate(180).resize((320,480))
+
+screen_2 = Image.open('/home/pi/LCD_SPI_INOSE/MOCKUP_INOSE/2.png')
+screen_2 = screen_2.rotate(180).resize((320,480))
+
+screen_3 = Image.open('/home/pi/LCD_SPI_INOSE/MOCKUP_INOSE/3.png')
+screen_3 = screen_3.rotate(180).resize((320,480))
+
+screen_4 = Image.open('/home/pi/LCD_SPI_INOSE/MOCKUP_INOSE/4.png')
+screen_4 = screen_4.rotate(180).resize((320,480))
+
+screen_5 = Image.open('/home/pi/LCD_SPI_INOSE/MOCKUP_INOSE/5.png')
+screen_5 = screen_5.rotate(180).resize((320,480))
+
+screen_6 = Image.open('/home/pi/LCD_SPI_INOSE/MOCKUP_INOSE/6.png')
+screen_6 = screen_6.rotate(180).resize((320,480))
 
 draw = ImageDraw.Draw(image)
 
@@ -29,7 +45,7 @@ draw.rectangle((0, 0, 320, 120), fill=(255,138,51))
 draw.line((160, 0, 160, 120), fill=(255,255,255))
 draw.line((159, 0, 159, 120), fill=(255,255,255))
 # Load default font.
-fontEn = ImageFont.truetype('miniN.ttf', 25)
+fontEn = ImageFont.truetype('/home/pi/LCD_SPI_INOSE/miniN.ttf', 75)
 
 def draw_rotated_text(image, text, position, angle, font, fill=(255,255,255)):
 	# Get rendered font width and height.
@@ -46,25 +62,30 @@ def draw_rotated_text(image, text, position, angle, font, fill=(255,255,255)):
 	image.paste(rotated, position, rotated)
 
 # Write two lines of white text on the buffer, rotated 90 degrees counter clockwise.
-draw_rotated_text(image, 'SETTING', (220, 15), 270, fontEn, fill=(255,255,255))
-draw_rotated_text(image, ' MULAI ', (80, 15), 270, fontEn, fill=(255,255,255))
+draw_rotated_text(screen_3, '97%', (140, 230), 270, fontEn, fill=(255,138,51))
+draw_rotated_text(screen_5, '89%', (170, 250), 270, fontEn, fill=(255,138,51))
+draw_rotated_text(screen_5, 'Positif', (100, 200), 270, fontEn, fill=(255,138,51))
 
 # Write buffer to display hardware, must be called to make things visible on the
 # display!
 #disp.display(image)
-disp.display(desktop)
-time.sleep(3)
-disp.display(image)
-xpt2046 = XPT2046()
-page=0
 
 while (1):
-		#startTime = time.time()
-		x = xpt2046.readX()
-		y = xpt2046.readY()
-		if page==0:
-			if x in range(200,1850) :
-				if y in range(200,1050) :
-					page = 1
-		if page==1:
-			disp.display(desktop)
+	disp.display(desktop)
+	time.sleep(3)
+#disp.display(image)
+#time.sleep(3)
+	disp.display(screen_2)
+	time.sleep(3)
+	disp.display(screen_3)
+	time.sleep(4)
+	disp.display(screen_4)
+	time.sleep(4)
+	disp.display(screen_5)
+	time.sleep(4)
+	disp.display(screen_2)
+	time.sleep(3)
+	disp.display(screen_6)
+	time.sleep(6)
+	break
+#page=0
