@@ -16,21 +16,14 @@ def callback(position):
     print('(x,y)', position)
 
 touch = XPT2046(480, 320, 17, callback, 7)
-touch.rotate = 270
+#touch.rotate = 270
 
 touch.init()
 
 while True:
     try:
-		#print('(x,y)', position)
-		#print(get_position())
-		time.sleep(1)
+        time.sleep(1)
 
     except KeyboardInterrupt:
-        print('\n')
-		#break
-		#touch.close()
-        #RPi.GPIO.cleanup()
-
-
-
+        touch.close()
+        # RPi.GPIO.cleanup()
