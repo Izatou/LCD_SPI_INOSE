@@ -12,6 +12,13 @@ lcd_tft = ILI9486(320, 480, SPI())
 lcd_tft.init()
 
 
+image_file = Image.open("inosek.png")
+lcd_tft.draw_image(0, 0, image_file)
+
+#numbers_image = Image.open("assets/dsp2017_101_64.png")
+#lcd_tft.transparency_color = (0, 0, 0)
+#lcd_tft.draw_image(10, 10, numbers_image)
+
 def callback(position):
     print('(x,y)', position)
 
