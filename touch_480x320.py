@@ -22,7 +22,7 @@ touch.init()
 
 while True:
     try:
-		print('(x,y)', position)
+		#print('(x,y)', position)
 		#print(get_position())
 		time.sleep(1)
 
