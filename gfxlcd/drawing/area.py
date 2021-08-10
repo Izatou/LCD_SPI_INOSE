@@ -106,49 +106,18 @@ class Area(Pixel):
         """draw a PIL image"""
         if isinstance(image, str):
             image = Image.open(image)
-        image_file = image.convert('RGB')
+        image_file = image.convert('L')
         width, height = image_file.size
-        self._set_area(
-            pos_x,
-            pos_y,
-            pos_x + width - 1,
-            pos_y + height - 1
-        )
-        row = 0
-        col = 0
-        area = None
-        temporary_area = None
-        for red, green, blue in list(image_file.getdata()):
-            if self._is_transparent((red, green, blue)):
-                area = (
-                    pos_x,
-                    pos_y + row + 1,
-                    pos_x + width - 1,
-                    pos_y + height - 1
-                )
-                temporary_area = (
-                    pos_x + col + 1,
-                    pos_y + row,
-                    pos_x + width - 1,
-                    pos_y + row
-                )
-            else:
-                if temporary_area is not None:
-                    self._set_area(*temporary_area)
-                    temporary_area = None
-                self.color = (red, green, blue)
-                self.driver.data(
-                    self._convert_color(self.options['color']), None
-                )
-
-            col += 1
-            if col > width - 1:
-                col = 0
-                row += 1
-                if area is not None:
-                    self._set_area(*area)
-                    area = None
-                    temporary_area = None
+        offset_x = 0
+        offset_y = 0
+        for stream in list(image_file.getdata()):
+            if stream > self.options['threshold'] \
+                    and not self._is_transparent(stream):
+                self.draw_pixel(pos_x + offset_x, pos_y + offset_y)
+            offset_x += 1
+            if offset_x > width - 1:
+                offset_x = 0
+                offset_y += 1
 
     def _is_transparent(self, color):
         """check if color is a transparency color"""
