@@ -87,11 +87,11 @@ disp.display(screen_2)
 touch.init()
 while True:
     try:
-		if page==0:
+		if page == 0:
 			disp.display(screen_2)
-		if page==3:
+		if page == 3:
 			disp.display(screen_3)
-		if page==4:
+		if page == 4:
 			disp.display(screen_4) 
 
     except KeyboardInterrupt:
