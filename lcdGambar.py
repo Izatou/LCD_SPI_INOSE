@@ -92,7 +92,7 @@ while True:
 		if page==3:
 			disp.display(screen_3)
 		if page==4:
-			disp.display(screen_4)
+			disp.display(screen_4) 
 
     except KeyboardInterrupt:
         #touch.close()
