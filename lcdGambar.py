@@ -63,22 +63,36 @@ def draw_rotated_text(image, text, position, angle, font, fill=(255,255,255)):
 draw_rotated_text(screen_3, '97%', (140, 230), 270, fontEn, fill=(255,138,51))
 draw_rotated_text(screen_5, '89%', (170, 250), 270, fontEn, fill=(255,138,51))
 draw_rotated_text(screen_5, 'Positif', (100, 200), 270, fontEn, fill=(255,138,51))
-
+page=0
 # Write buffer to display hardware, must be called to make things visible on the
 # display!
 #disp.display(image)
 
 def callback(position):
-    print('(x,y)', position)
+    #print('(x,y)', position)
+	if position[0] > 350:
+		if position[1] < 150:
+			page=4
+	if position[0] > 350:
+		if position[1] > 150:
+			page=3
+	
 
 touch = XPT2046(480, 320, 17, callback, 7)
 #touch.rotate = 270
 disp.display(desktop)
+time.sleep(3)
+disp.display(screen_2)
 
 touch.init()
 while True:
     try:
-        time.sleep(0.01)
+		if page==0:
+			disp.display(screen_2)
+		if page==3:
+			disp.display(screen_3)
+		if page==4:
+			disp.display(screen_4)
 
     except KeyboardInterrupt:
         #touch.close()
